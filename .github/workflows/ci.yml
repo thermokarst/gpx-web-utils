@@ -17,7 +17,7 @@ jobs:
     - name: install wasm-pack
       run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
     - name: test
-      run: wasm-pack test
+      run: wasm-pack test --firefox
 
   build:
     runs-on: ubuntu-latest
