@@ -57,6 +57,18 @@
 /******/ 				"./gpx_web_utils_bg.js": {
 /******/ 					"__wbg_alert_4ad63c9979edd105": function(p0i32,p1i32) {
 /******/ 						return installedModules["../pkg/gpx_web_utils_bg.js"].exports["__wbg_alert_4ad63c9979edd105"](p0i32,p1i32);
+/******/ 					},
+/******/ 					"__wbg_new_59cb74e423758ede": function() {
+/******/ 						return installedModules["../pkg/gpx_web_utils_bg.js"].exports["__wbg_new_59cb74e423758ede"]();
+/******/ 					},
+/******/ 					"__wbg_stack_558ba5917b466edd": function(p0i32,p1i32) {
+/******/ 						return installedModules["../pkg/gpx_web_utils_bg.js"].exports["__wbg_stack_558ba5917b466edd"](p0i32,p1i32);
+/******/ 					},
+/******/ 					"__wbg_error_4bb6c2a97407129a": function(p0i32,p1i32) {
+/******/ 						return installedModules["../pkg/gpx_web_utils_bg.js"].exports["__wbg_error_4bb6c2a97407129a"](p0i32,p1i32);
+/******/ 					},
+/******/ 					"__wbindgen_object_drop_ref": function(p0i32) {
+/******/ 						return installedModules["../pkg/gpx_web_utils_bg.js"].exports["__wbindgen_object_drop_ref"](p0i32);
 /******/ 					}
 /******/ 				}
 /******/ 			};
@@ -159,7 +171,7 @@
 /******/ 				promises.push(installedWasmModuleData);
 /******/ 			else {
 /******/ 				var importObject = wasmImportObjects[wasmModuleId]();
-/******/ 				var req = fetch(__webpack_require__.p + "" + {"../pkg/gpx_web_utils_bg.wasm":"2e9be17d99a523dc8ae9"}[wasmModuleId] + ".module.wasm");
+/******/ 				var req = fetch(__webpack_require__.p + "" + {"../pkg/gpx_web_utils_bg.wasm":"46d4844c9de40702e69e"}[wasmModuleId] + ".module.wasm");
 /******/ 				var promise;
 /******/ 				if(importObject instanceof Promise && typeof WebAssembly.compileStreaming === 'function') {
 /******/ 					promise = Promise.all([WebAssembly.compileStreaming(req), importObject]).then(function(items) {
