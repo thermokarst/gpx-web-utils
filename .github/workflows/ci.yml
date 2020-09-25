@@ -28,4 +28,4 @@ jobs:
     - name: build
       run: cd www && npm install && npm run build
     - name: debug
-      run: ls -lah dist/
+      run: cd www && ls -lah dist/
