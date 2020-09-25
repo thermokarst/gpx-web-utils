@@ -29,7 +29,11 @@ jobs:
     - name: install wasm-pack
       run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
     - name: build
-      run: cd www && npm install && npm run build
+      run: |
+        wasm-pack build
+        cd www
+        npm install
+        npm run build
     - name: deploy
       uses: peaceiris/actions-gh-pages@v3
       if: github.ref == 'refs/heads/main'
