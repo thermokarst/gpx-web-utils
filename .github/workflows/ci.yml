@@ -13,6 +13,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+    - run: echo ${{ $default-branch }}
     - uses: actions/checkout@v2
     - name: install wasm-pack
       run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
@@ -21,6 +22,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    needs: test
     steps:
     - uses: actions/checkout@v2
     - name: install wasm-pack
@@ -29,7 +31,7 @@ jobs:
       run: cd www && npm install && npm run build
     - name: deploy
       uses: peaceiris/actions-gh-pages@v3
-      # if: github.ref == 'refs/heads/main'
+      if: github.ref == 'refs/heads/main'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: www/dist
