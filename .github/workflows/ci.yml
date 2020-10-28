@@ -15,11 +15,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: debug
-      run: |
-        ls -lah
-        less Cargo.lock
-
     - uses: actions/cache@v2
       with:
         path: |
