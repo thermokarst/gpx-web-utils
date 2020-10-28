@@ -14,10 +14,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+
+    - name: lint
+      run: cargo fmt -- --check
+
     - name: install wasm-pack
       run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
     - name: check
       run: cargo check
+
     - name: test
       run: wasm-pack test --node
 
@@ -26,14 +32,17 @@ jobs:
     needs: test
     steps:
     - uses: actions/checkout@v2
+
     - name: install wasm-pack
       run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
     - name: build
       run: |
         wasm-pack build
         cd www
         npm install
         npm run build
+
     - name: deploy
       uses: peaceiris/actions-gh-pages@v3
       if: github.ref == 'refs/heads/main'
