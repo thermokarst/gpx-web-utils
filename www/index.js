@@ -1,4 +1,4 @@
-import * as wasm from "gpx-web-utils";
+import * as gpc from "gpx-web-utils";
 
 const inputElement = document.getElementById("input");
 
@@ -11,7 +11,7 @@ function readFiles() {
   const promises = files.map(f => f.text());
 
   Promise.all(promises).then(gpxes => {
-    const merged = wasm.merge(gpxes);
+    const merged = gpx.merge(gpxes);
 
     writeOutput(merged);
 
