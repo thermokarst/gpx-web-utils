@@ -1,4 +1,4 @@
-import * as gpc from "gpx-web-utils";
+import * as gpx from "gpx-web-utils";
 
 const inputElement = document.getElementById("input");
 
@@ -12,15 +12,13 @@ function readFiles() {
 
   Promise.all(promises).then(gpxes => {
     const merged = gpx.merge(gpxes);
-
     writeOutput(merged);
-
     inputElement.value = "";
   });
 }
 
-function writeOutput(files) {
-    const blob = new Blob([files], {type: "text/gpx"});
+function writeOutput(file) {
+    const blob = new Blob([file], {type: "text/gpx"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = "merged.gpx";
