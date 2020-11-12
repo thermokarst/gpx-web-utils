@@ -41,5 +41,6 @@ pub fn join_gpx_files(files: Vec<String>) -> gpx::Gpx {
 pub fn write_gpx_to_buffer(gpx: gpx::Gpx) -> Vec<u8> {
     let mut buffer = Vec::new();
     gpx::write(&gpx, &mut buffer).unwrap();
+
     buffer
 }
