@@ -13,15 +13,10 @@ pub fn join_gpx_files(files: Vec<String>) -> gpx::Gpx {
 
     for file in files.iter() {
         let buffer = std::io::BufReader::new(file.as_bytes());
-        let parsed_gpx: gpx::Gpx = gpx::read(buffer).expect("oops1");
+        let mut parsed_gpx: gpx::Gpx = gpx::read(buffer).expect("invalid gpx");
 
-        for track in parsed_gpx.tracks.into_iter() {
-            merged.tracks.push(track);
-        }
-
-        for waypoint in parsed_gpx.waypoints.into_iter() {
-            merged.waypoints.push(waypoint);
-        }
+        merged.tracks.append(&mut parsed_gpx.tracks);
+        merged.waypoints.append(&mut parsed_gpx.waypoints);
     }
 
     let link = gpx::Link {
