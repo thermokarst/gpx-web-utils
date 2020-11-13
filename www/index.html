@@ -22,19 +22,23 @@
     <h1>
       <a href="https://gpx.thermokar.st">gpx.thermokar.st</a>
     </h1>
-    <span>
+    <p>
       This client-side tool is for merging
       <a href="https://www.topografix.com/gpx.asp">GPX files</a>.
       Please note, this has only been tested on GPX files produced by
       <a href="https://www.garmin.com">Garmin</a> and
       <a href="https://www.strava.com">Strava</a> - your mileage may vary.
-      Source:
-      <a href="https://github.com/thermokarst/gpx-web-utils">
-        https://github.com/thermokarst/gpx-web-utils</a>
-    </span>
+    </p>
     <form>
-      <input id="gpxInput" type="file" multiple>
+      <input id="gpxInput" type="file" multiple accept="text/gpx,.gpx">
     </form>
+    <hr>
+    <p>
+      <small>
+         <a href="https://github.com/thermokarst/gpx-web-utils">
+          https://github.com/thermokarst/gpx-web-utils</a>
+      </small>
+    </p>
     <script src="./bootstrap.js"></script>
   </body>
 </html>
