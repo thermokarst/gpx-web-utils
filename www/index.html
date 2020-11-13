@@ -2,11 +2,39 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>gpx web utils</title>
+    <title>gpx.thermokar.st</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body {
+        max-width: 35em;
+        margin: 0 auto;
+        line-height: 1.5;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: large;
+      }
+    </style>
   </head>
   <body>
-    <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
-    <input id="input" type="file" multiple>
+    <noscript>
+      This page contains webassembly and javascript content, please enable
+      javascript in your browser.
+    </noscript>
+    <h1>
+      <a href="https://gpx.thermokar.st">gpx.thermokar.st</a>
+    </h1>
+    <span>
+      This client-side tool is for merging
+      <a href="https://www.topografix.com/gpx.asp">GPX files</a>.
+      Please note, this has only been tested on GPX files produced by
+      <a href="https://www.garmin.com">Garmin</a> and
+      <a href="https://www.strava.com">Strava</a> - your mileage may vary.
+      Source:
+      <a href="https://github.com/thermokarst/gpx-web-utils">
+        https://github.com/thermokarst/gpx-web-utils</a>
+    </span>
+    <form>
+      <input id="gpxInput" type="file" multiple>
+    </form>
     <script src="./bootstrap.js"></script>
   </body>
 </html>
