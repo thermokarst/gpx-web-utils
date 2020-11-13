@@ -1,6 +1,6 @@
 import * as gpx from "gpx-web-utils";
 
-const inputElement = document.getElementById("input");
+const inputElement = document.getElementById("gpxInput");
 
 inputElement.addEventListener("change", readFiles, false);
 
