@@ -24,7 +24,8 @@ fn basic_merge() {
                </trkpt>
              </trkseg>
            </trk>
-         </gpx>");
+         </gpx>",
+    );
     let file2 = wasm_bindgen::JsValue::from_str(
         "<?xml version='1.0' encoding='utf-8'?>
          <gpx version='1.0' encoding='UTF-8'>
@@ -38,7 +39,8 @@ fn basic_merge() {
                </trkpt>
              </trkseg>
            </trk>
-         </gpx>");
+         </gpx>",
+    );
     array.push(&file1);
     array.push(&file2);
 
@@ -72,7 +74,8 @@ fn basic_merge() {
     </trkseg>
   </trk>
   <rte />
-</gpx>");
+</gpx>",
+    );
 
     // act
     let obs = gpx_web_utils::merge(array);
