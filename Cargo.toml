@@ -4,19 +4,14 @@ version = "0.0.1"
 authors = ["Matthew Dillon <matthewrdillon@gmail.com>"]
 edition = "2018"
 description = "just some gpx-related tools that i want to use"
-repository = "https://github.com/thermokarst/gpx-web-utils"
+repository = "git://pingo.thermokar.st/gpx-web-utils"
 license = "MIT"
-
-[lib]
-crate-type = ["cdylib", "rlib"]
-
-[features]
-default = ["console_error_panic_hook"]
 
 [dependencies]
 wasm-bindgen = "0.2.63"
 js-sys = "0.3.45"
 gpx = "0.8.1"
+yew = "0.18"
 
 console_error_panic_hook = { version = "0.1.6", optional = true }
 
