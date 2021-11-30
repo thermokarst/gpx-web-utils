@@ -1,7 +1,5 @@
 # gpx-web-utils
 
-![ci](https://github.com/thermokarst/gpx-web-utils/workflows/ci/badge.svg)
-
 ## quickstart
 
 1. install [wasm-pack](https://rustwasm.github.io/wasm-pack/installer/)

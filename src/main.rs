@@ -40,9 +40,9 @@ impl Component for Model {
 
     fn view(&self) -> Html {
         html! {
-          <div>
+          <>
             <h1>
-              <a href="https://gpx.thermokar.st">{"gpx.thermokar.st"}</a>
+              <a href="/">{"gpx.thermokar.st"}</a>
             </h1>
 
             <p>
@@ -68,7 +68,7 @@ impl Component for Model {
                 </a>
               </small>
             </p>
-          </div>
+          </>
         }
     }
 }
