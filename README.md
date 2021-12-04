@@ -2,8 +2,9 @@
 
 ## quickstart
 
-1. install [wasm-pack](https://rustwasm.github.io/wasm-pack/installer/)
-2. `wasm-pack build`
-3. `cd www`
-4. `npm install`
-5. `npm run start`
+```bash
+cargo install --locked trunk
+cargo install wasm-bindgen-cli
+rustup target add wasm32-unknown-unknown
+trunk serve
+```

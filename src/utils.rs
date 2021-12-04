@@ -1,14 +1,6 @@
-pub fn set_panic_hook() {
-    #[cfg(feature = "console_error_panic_hook")]
-    console_error_panic_hook::set_once();
-}
+use web_sys::Blob;
 
-pub fn translate_js_to_rust(files: js_sys::Array) -> Vec<String> {
-    // https://github.com/rustwasm/wasm-bindgen/issues/111
-    files.iter().map(|f| f.as_string().unwrap()).collect()
-}
-
-pub fn join_gpx_files(files: Vec<String>) -> gpx::Gpx {
+fn join_gpx_files(files: &Vec<String>) -> gpx::Gpx {
     let mut merged_gpx: gpx::Gpx = Default::default();
     let mut merged_track: gpx::Track = gpx::Track::new();
 
@@ -46,10 +38,20 @@ pub fn join_gpx_files(files: Vec<String>) -> gpx::Gpx {
 
     merged_gpx
 }
-
-pub fn write_gpx_to_buffer(gpx: gpx::Gpx) -> Vec<u8> {
+fn write_gpx_to_buffer(gpx: gpx::Gpx) -> js_sys::Array {
     let mut buffer = Vec::new();
     gpx::write(&gpx, &mut buffer).unwrap();
 
-    buffer
+    let uint8arr = js_sys::Uint8Array::new(&unsafe { js_sys::Uint8Array::view(&buffer) }.into());
+    let array = js_sys::Array::new();
+    array.push(&uint8arr.buffer());
+
+    array
+}
+
+pub fn merge(files: &Vec<String>) -> Blob {
+    let merged: gpx::Gpx = join_gpx_files(files);
+    let out_vec = write_gpx_to_buffer(merged);
+
+    Blob::new_with_u8_array_sequence(&out_vec).unwrap()
 }
