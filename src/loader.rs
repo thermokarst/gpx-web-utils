@@ -9,7 +9,7 @@ use super::utils;
 
 pub enum Msg {
     FileLoaded(String, String),
-    Files(Vec<File>),
+    StartLoad(Vec<File>),
     FilesLoaded,
     Reset,
 }
@@ -18,6 +18,9 @@ pub struct Loader {
     readers: HashMap<String, FileReader>,
     files: Vec<String>,
     count: usize,
+    is_loading: bool,
+    // This field is to handle resetting the native HTML widget's state on error
+    field_value: &'static str,
 }
 
 impl Component for Loader {
@@ -29,6 +32,8 @@ impl Component for Loader {
             readers: HashMap::default(),
             files: vec![],
             count: 0,
+            is_loading: false,
+            field_value: "",
         }
     }
 
@@ -43,8 +48,15 @@ impl Component for Loader {
                 true
             }
 
-            Msg::Files(files) => {
+            Msg::StartLoad(files) => {
                 self.count = files.len();
+                if self.count < 2 {
+                    utils::alert("must load two or more files");
+                    ctx.link().send_message(Msg::Reset);
+                    return true;
+                }
+                self.is_loading = true;
+
                 for file in files.into_iter() {
                     let file_name = file.name();
                     let task = {
@@ -64,7 +76,14 @@ impl Component for Loader {
             }
 
             Msg::FilesLoaded => {
-                let merged = utils::merge(&self.files);
+                let merged = match utils::merge(&self.files) {
+                    Ok(result) => result,
+                    Err(err) => {
+                        utils::alert(&err.to_string());
+                        ctx.link().send_message(Msg::Reset);
+                        return true
+                    }
+                };
 
                 let window = web_sys::window().expect("no global `window` exists");
                 let document = window.document().expect("should have a document on window");
@@ -74,6 +93,8 @@ impl Component for Loader {
 
                 anchor_element.set_attribute("href", &url).unwrap();
                 anchor_element.set_attribute("download", "merged.gpx").unwrap();
+
+                self.is_loading = false;
 
                 let event = MouseEvent::new("click").unwrap();
                 anchor_element.dispatch_event(&event).unwrap();
@@ -85,6 +106,8 @@ impl Component for Loader {
                 self.readers = HashMap::default();
                 self.files = vec![];
                 self.count = 0;
+                self.is_loading = false;
+                self.field_value = "";
                 true
             }
         }
@@ -93,8 +116,10 @@ impl Component for Loader {
     fn view(&self, ctx: &Context<Self>) -> Html {
         let link = ctx.link();
         html! {
-            <>
-                <input type="file" multiple=true onchange={link.callback(move |e: Event| {
+            if self.is_loading {
+                <span>{"loading..."}</span>
+            } else {
+                <input type="file" value={self.field_value} multiple=true onchange={link.callback(move |e: Event| {
                     let mut result = Vec::new();
                     let input: HtmlInputElement = e.target_unchecked_into();
 
@@ -106,10 +131,10 @@ impl Component for Loader {
                             .map(File::from);
                         result.extend(files);
                     }
-                    Msg::Files(result)
+                    Msg::StartLoad(result)
                     })}
                 />
-            </>
+            }
         }
     }
 }
