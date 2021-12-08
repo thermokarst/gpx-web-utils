@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use gloo_file::callbacks::FileReader;
 use gloo_file::File;
-use web_sys::{Event, HtmlInputElement, MouseEvent, Url};
+use web_sys::{Event, HtmlInputElement, Url, MouseEvent};
 use yew::{html, html::TargetCast, Component, Context, Html};
 
 use super::utils;
@@ -83,7 +83,7 @@ impl Component for Loader {
                     Err(err) => {
                         utils::alert(&err.to_string());
                         ctx.link().send_message(Msg::Reset);
-                        return true;
+                        return true
                     }
                 };
 
@@ -94,9 +94,7 @@ impl Component for Loader {
                 let url = Url::create_object_url_with_blob(&merged).unwrap();
 
                 anchor_element.set_attribute("href", &url).unwrap();
-                anchor_element
-                    .set_attribute("download", "merged.gpx")
-                    .unwrap();
+                anchor_element.set_attribute("download", "merged.gpx").unwrap();
 
                 self.is_loading = false;
 
@@ -122,7 +120,7 @@ impl Component for Loader {
         let link = ctx.link();
         html! {
             if self.is_loading {
-                <span>{"loading..."}</span>
+                <span><strong>{"processing..."}</strong></span>
             } else {
                 <input type="file" value={self.field_value} multiple=true onchange={link.callback(move |e: Event| {
                     let mut result = Vec::new();

@@ -15,6 +15,7 @@ gpx = "0.8.1"
 # yew = "0.19"
 yew = { git = "https://github.com/yewstack/yew.git" }
 gloo-file = "0.2"
+wee_alloc = "0.4"
 
 console_error_panic_hook = { version = "0.1.6", optional = true }
 
