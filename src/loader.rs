@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use gloo_file::callbacks::FileReader;
 use gloo_file::File;
-use web_sys::{Event, HtmlInputElement, Url, MouseEvent};
+use web_sys::{Event, HtmlInputElement, MouseEvent, Url};
 use yew::{html, html::TargetCast, Component, Context, Html};
 
 use super::utils;
@@ -45,6 +45,7 @@ impl Component for Loader {
                 if self.files.len() == self.count {
                     ctx.link().send_message(Msg::FilesLoaded);
                 }
+
                 true
             }
 
@@ -72,6 +73,7 @@ impl Component for Loader {
                     };
                     self.readers.insert(file_name, task);
                 }
+
                 true
             }
 
@@ -81,7 +83,7 @@ impl Component for Loader {
                     Err(err) => {
                         utils::alert(&err.to_string());
                         ctx.link().send_message(Msg::Reset);
-                        return true
+                        return true;
                     }
                 };
 
@@ -92,7 +94,9 @@ impl Component for Loader {
                 let url = Url::create_object_url_with_blob(&merged).unwrap();
 
                 anchor_element.set_attribute("href", &url).unwrap();
-                anchor_element.set_attribute("download", "merged.gpx").unwrap();
+                anchor_element
+                    .set_attribute("download", "merged.gpx")
+                    .unwrap();
 
                 self.is_loading = false;
 
@@ -108,6 +112,7 @@ impl Component for Loader {
                 self.count = 0;
                 self.is_loading = false;
                 self.field_value = "";
+
                 true
             }
         }
