@@ -15,7 +15,7 @@ pub fn app() -> Html {
             </h1>
 
             <p>
-                { "a client-side tool for merging "}
+                { "a client-side tool for merging " }
                 <a href="https://www.topografix.com/gpx.asp">
                     { "gpx files" }
                 </a>
