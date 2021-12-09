@@ -21,7 +21,9 @@ impl Component for App {
 
                 <p>
                     {"This client-side tool is for merging "}
-                    <a href="https://www.topografix.com/gpx.asp">{"GPX files"}</a>
+                    <a href="https://www.topografix.com/gpx.asp">
+                        {"GPX files"}
+                    </a>
                     {". "}
                 </p>
 
@@ -30,12 +32,22 @@ impl Component for App {
                 <hr/>
 
                 <p>
-                    {"Please note, this has only been tested on GPX files produced by "}
-                    <a href="https://www.garmin.com">{"Garmin"}</a>{" and "}
-                    <a href="https://www.strava.com">{"Strava"}</a>{" - your mileage may vary."}
+                    {"Note, this has only been tested on GPX files produced by "}
+                    <a href="https://www.garmin.com">
+                        {"Garmin"}
+                    </a>
+                    {" and "}
+                    <a href="https://www.strava.com">
+                        {"Strava"}
+                    </a>
+                    {" - your mileage may vary."}
                 </p>
+
                 <p>
-                    <small>{"source (public access): git://pingo.thermokar.st/gpx-web-utils"}</small>
+                    <small>
+                        {"source (public access): "}
+                        {"git://pingo.thermokar.st/gpx-web-utils"}
+                    </small>
                 </p>
             </>
         }
