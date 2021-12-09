@@ -4,25 +4,25 @@ version = "0.0.1"
 authors = ["Matthew Dillon <matthewrdillon@gmail.com>"]
 edition = "2018"
 description = "just some gpx-related tools that i want to use"
-repository = "https://github.com/thermokarst/gpx-web-utils"
+repository = "git://pingo.thermokar.st/gpx-web-utils"
 license = "MIT"
 
-[lib]
-crate-type = ["cdylib", "rlib"]
-
-[features]
-default = ["console_error_panic_hook"]
-
 [dependencies]
-wasm-bindgen = "0.2.63"
-js-sys = "0.3.45"
+wasm-bindgen = "0.2"
+js-sys = "0.3"
 gpx = "0.8.1"
+# TODO: still waiting on a public release
+# yew = "0.19"
+yew = { git = "https://github.com/yewstack/yew.git" }
+gloo-file = "0.2"
+wee_alloc = "0.4"
 
 console_error_panic_hook = { version = "0.1.6", optional = true }
-
-[dev-dependencies]
-wasm-bindgen-test = "0.3.13"
 
 [profile.release]
 opt-level = 3
 lto = true
+
+[dependencies.web-sys]
+version = "0.3"
+features = ["File", "Blob", "Element", "MouseEvent", "EventTarget", "Url", "Event"]

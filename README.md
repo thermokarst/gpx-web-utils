@@ -1,11 +1,21 @@
 # gpx-web-utils
 
-![ci](https://github.com/thermokarst/gpx-web-utils/workflows/ci/badge.svg)
+## development
 
-## quickstart
+```bash
+cargo install --locked trunk
+cargo install wasm-bindgen-cli
+rustup target add wasm32-unknown-unknown
+trunk serve
+```
 
-1. install [wasm-pack](https://rustwasm.github.io/wasm-pack/installer/)
-2. `wasm-pack build`
-3. `cd www`
-4. `npm install`
-5. `npm run start`
+## deployment
+
+```bash
+trunk build --release
+git switch deploy
+rm index-*
+cp dist/* .
+git commit -am 'foo'
+git push <DOKKU INSTANCE> deploy
+```
