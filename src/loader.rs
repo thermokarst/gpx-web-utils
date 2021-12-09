@@ -124,25 +124,30 @@ impl Component for Loader {
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {
-        let link = ctx.link();
+        let cb = move |e: Event| {
+            let mut result = Vec::new();
+            let input: HtmlInputElement = e.target_unchecked_into();
+
+            if let Some(files) = input.files() {
+                let files = js_sys::try_iter(&files)
+                    .unwrap()
+                    .unwrap()
+                    .map(|v| web_sys::File::from(v.unwrap()))
+                    .map(File::from);
+                result.extend(files);
+            }
+            Msg::StartLoad(result)
+        };
+
         html! {
             if self.is_loading {
                 <span><strong>{"processing..."}</strong></span>
             } else {
-                <input type="file" value={self.field_value} multiple=true onchange={link.callback(move |e: Event| {
-                    let mut result = Vec::new();
-                    let input: HtmlInputElement = e.target_unchecked_into();
-
-                    if let Some(files) = input.files() {
-                        let files = js_sys::try_iter(&files)
-                            .unwrap()
-                            .unwrap()
-                            .map(|v| web_sys::File::from(v.unwrap()))
-                            .map(File::from);
-                        result.extend(files);
-                    }
-                    Msg::StartLoad(result)
-                    })}
+                <input
+                    type="file"
+                    value={self.field_value}
+                    multiple=true
+                    onchange={ctx.link().callback(cb)}
                 />
             }
         }
