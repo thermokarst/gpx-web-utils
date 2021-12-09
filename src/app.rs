@@ -32,14 +32,18 @@ pub fn app() -> Html {
 #[function_component(Footer)]
 fn footer() -> Html {
     let notes = Vec::from([
+        // note 1
         "this has only been tested on GPX files produced by \
         <a href='https://strava.com'>strava</a> and \
         <a href='https://garmin.com'>garmin</a>",
+        // note 2
         "all third-party extension info \
         <a href='https://github.com/georust/gpx/issues/8'>\
         is stripped</a>",
+        // note 3
         "if the app breaks, try refreshing the page",
         "source (public access): git://pingo.thermokar.st/gpx-web-utils",
+        // note 4
         "source (mirror): \
         <a href='https://github.com/thermokarst/gpx-web-utils'>\
         https://github.com/thermokarst/gpx-web-utils</a>",
