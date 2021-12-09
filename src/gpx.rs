@@ -1,6 +1,6 @@
 use std::error::Error;
 use wasm_bindgen::prelude::*;
-use web_sys::Blob;
+use web_sys::{Blob, MouseEvent, Url};
 
 fn join_gpx_files(files: &[String]) -> Result<gpx::Gpx, Box<dyn Error>> {
     let mut merged_gpx: gpx::Gpx = Default::default();
@@ -57,6 +57,29 @@ pub fn merge(files: &[String]) -> Result<Blob, Box<dyn Error>> {
     let result = Blob::new_with_u8_array_sequence(&out_vec).map_err(|e| e.as_string().unwrap())?;
 
     Ok(result)
+}
+
+pub fn download(merged: Blob) -> Result<(), Box<dyn Error>> {
+    let window = web_sys::window().ok_or("no global `window` exists")?;
+    let document = window
+        .document()
+        .ok_or("should have a document on window")?;
+
+    let err_handler = |e: JsValue| e.as_string().unwrap();
+    let anchor_element = document.create_element("a").map_err(err_handler)?;
+    let url = Url::create_object_url_with_blob(&merged).map_err(err_handler)?;
+
+    anchor_element
+        .set_attribute("href", &url)
+        .map_err(err_handler)?;
+    anchor_element
+        .set_attribute("download", "merged.gpx")
+        .map_err(err_handler)?;
+
+    let event = MouseEvent::new("click").map_err(err_handler)?;
+    anchor_element.dispatch_event(&event).map_err(err_handler)?;
+
+    Ok(())
 }
 
 #[wasm_bindgen]

@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use gloo_file::callbacks::FileReader;
 use gloo_file::File;
-use web_sys::{Event, HtmlInputElement, Url, MouseEvent};
+use web_sys::{Blob, Event, HtmlInputElement};
 use yew::{html, html::TargetCast, Component, Context, Html};
 
 use super::gpx;
@@ -11,6 +11,7 @@ pub enum Msg {
     FileLoaded(String, String),
     StartLoad(Vec<File>),
     FilesLoaded,
+    Download(Blob),
     Reset,
 }
 
@@ -78,28 +79,34 @@ impl Component for Loader {
             }
 
             Msg::FilesLoaded => {
+                let link = ctx.link();
+
                 let merged = match gpx::merge(&self.files) {
                     Ok(result) => result,
                     Err(err) => {
                         gpx::alert(&err.to_string());
-                        ctx.link().send_message(Msg::Reset);
-                        return true
+                        link.send_message(Msg::Reset);
+                        return true;
                     }
                 };
 
-                let window = web_sys::window().expect("no global `window` exists");
-                let document = window.document().expect("should have a document on window");
-                let anchor_element = document.create_element("a").unwrap();
+                link.send_message(Msg::Download(merged));
 
-                let url = Url::create_object_url_with_blob(&merged).unwrap();
+                true
+            }
 
-                anchor_element.set_attribute("href", &url).unwrap();
-                anchor_element.set_attribute("download", "merged.gpx").unwrap();
+            Msg::Download(merged) => {
+                let link = ctx.link();
 
-                self.is_loading = false;
-
-                let event = MouseEvent::new("click").unwrap();
-                anchor_element.dispatch_event(&event).unwrap();
+                match gpx::download(merged) {
+                    Ok(_) => (),
+                    Err(err) => {
+                        gpx::alert(&err.to_string());
+                        link.send_message(Msg::Reset);
+                        return true;
+                    }
+                }
+                link.send_message(Msg::Reset);
 
                 true
             }

@@ -1,8 +1,8 @@
 extern crate wee_alloc;
 
 mod app;
-mod loader;
 mod gpx;
+mod loader;
 
 // Use `wee_alloc` as the global allocator.
 #[global_allocator]

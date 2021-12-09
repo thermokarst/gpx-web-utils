@@ -30,14 +30,12 @@ impl Component for App {
                 <hr/>
 
                 <p>
+                    {"Please note, this has only been tested on GPX files produced by "}
+                    <a href="https://www.garmin.com">{"Garmin"}</a>{" and "}
+                    <a href="https://www.strava.com">{"Strava"}</a>{" - your mileage may vary."}
+                </p>
+                <p>
                     <small>{"source (public access): git://pingo.thermokar.st/gpx-web-utils"}</small>
-                    <small>
-                        {"Please note, this has only been tested on GPX files produced by "}
-                        <a href="https://www.garmin.com">{"Garmin"}</a>
-                        {" and "}
-                        <a href="https://www.strava.com">{"Strava"}</a>
-                        {" - your mileage may vary."}
-                    </small>
                 </p>
             </>
         }
