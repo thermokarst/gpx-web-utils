@@ -2,7 +2,7 @@ use super::loader::Loader;
 
 use web_sys::Node;
 use yew::virtual_dom::VNode;
-use yew::{html, Html, function_component};
+use yew::{function_component, html, Html};
 
 #[function_component(App)]
 pub fn app() -> Html {
@@ -35,15 +35,11 @@ fn footer() -> Html {
         "this has only been tested on GPX files produced by \
         <a href='https://strava.com'>strava</a> and \
         <a href='https://garmin.com'>garmin</a>",
-
         "all third-party extension info \
         <a href='https://github.com/georust/gpx/issues/8'>\
         is stripped</a>",
-
         "if the app breaks, try refreshing the page",
-
         "source (public access): git://pingo.thermokar.st/gpx-web-utils",
-
         "source (mirror): \
         <a href='https://github.com/thermokarst/gpx-web-utils'>\
         https://github.com/thermokarst/gpx-web-utils</a>",
@@ -70,7 +66,6 @@ fn li(data: &str) -> Html {
         .unwrap();
     li.set_inner_html(data);
     let node = Node::from(li);
-    let vnode = VNode::VRef(node);
 
-    vnode
+    VNode::VRef(node)
 }
