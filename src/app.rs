@@ -14,33 +14,32 @@ impl Component for App {
 
     fn view(&self, _ctx: &Context<Self>) -> Html {
         html! {
-          <>
-            <h1>
-              <a href="/">{"gpx.thermokar.st"}</a>
-            </h1>
+            <>
+                <h1>
+                   <a href="/">{"gpx.thermokar.st"}</a>
+                </h1>
 
-            <p>
-              {"This client-side tool is for merging "}
-              <a href="https://www.topografix.com/gpx.asp">{"GPX files"}</a>
-              {". Please note, this has only been tested on GPX files produced by "}
-              <a href="https://www.garmin.com">{"Garmin"}</a>
-              {" and "}
-              <a href="https://www.strava.com">{"Strava"}</a>
-              {" - your mileage may vary."}
-            </p>
+                <p>
+                    {"This client-side tool is for merging "}
+                    <a href="https://www.topografix.com/gpx.asp">{"GPX files"}</a>
+                    {". "}
+                </p>
 
-            <Loader />
+                <Loader />
 
-            <hr/>
+                <hr/>
 
-            <p>
-              <small>
-                <a href="https://github.com/thermokarst/gpx-web-utils">
-                  {"https://github.com/thermokarst/gpx-web-utils"}
-                </a>
-              </small>
-            </p>
-          </>
+                <p>
+                    <small>{"source (public access): git://pingo.thermokar.st/gpx-web-utils"}</small>
+                    <small>
+                        {"Please note, this has only been tested on GPX files produced by "}
+                        <a href="https://www.garmin.com">{"Garmin"}</a>
+                        {" and "}
+                        <a href="https://www.strava.com">{"Strava"}</a>
+                        {" - your mileage may vary."}
+                    </small>
+                </p>
+            </>
         }
     }
 }

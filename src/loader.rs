@@ -5,7 +5,7 @@ use gloo_file::File;
 use web_sys::{Event, HtmlInputElement, Url, MouseEvent};
 use yew::{html, html::TargetCast, Component, Context, Html};
 
-use super::utils;
+use super::gpx;
 
 pub enum Msg {
     FileLoaded(String, String),
@@ -52,7 +52,7 @@ impl Component for Loader {
             Msg::StartLoad(files) => {
                 self.count = files.len();
                 if self.count < 2 {
-                    utils::alert("must load two or more files");
+                    gpx::alert("must load two or more files");
                     ctx.link().send_message(Msg::Reset);
                     return true;
                 }
@@ -78,10 +78,10 @@ impl Component for Loader {
             }
 
             Msg::FilesLoaded => {
-                let merged = match utils::merge(&self.files) {
+                let merged = match gpx::merge(&self.files) {
                     Ok(result) => result,
                     Err(err) => {
-                        utils::alert(&err.to_string());
+                        gpx::alert(&err.to_string());
                         ctx.link().send_message(Msg::Reset);
                         return true
                     }

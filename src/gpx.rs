@@ -2,7 +2,7 @@ use std::error::Error;
 use wasm_bindgen::prelude::*;
 use web_sys::Blob;
 
-fn join_gpx_files(files: &Vec<String>) -> Result<gpx::Gpx, Box<dyn Error>> {
+fn join_gpx_files(files: &[String]) -> Result<gpx::Gpx, Box<dyn Error>> {
     let mut merged_gpx: gpx::Gpx = Default::default();
     let mut merged_track: gpx::Track = gpx::Track::new();
 
@@ -51,7 +51,7 @@ fn write_gpx_to_buffer(gpx: gpx::Gpx) -> Result<js_sys::Array, Box<dyn Error>> {
     Ok(array)
 }
 
-pub fn merge(files: &Vec<String>) -> Result<Blob, Box<dyn Error>> {
+pub fn merge(files: &[String]) -> Result<Blob, Box<dyn Error>> {
     let merged: gpx::Gpx = join_gpx_files(files)?;
     let out_vec = write_gpx_to_buffer(merged)?;
     let result = Blob::new_with_u8_array_sequence(&out_vec).map_err(|e| e.as_string().unwrap())?;
