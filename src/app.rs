@@ -58,7 +58,7 @@ fn footer() -> Html {
 
             <span>
                 <small>
-                    { "\u{000A9} matthew ryan dillon, 2021" }
+                    { "\u{000A9} matthew ryan dillon, 2022" }
                 </small>
             </span>
         </div>
